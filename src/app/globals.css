@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #1f1520;
+  --color-muted: #6b5d68;
+  --color-line: #e8dfe3;
+  --color-paper: #fbf7f4;
+  --color-card: #ffffff;
+  --color-wine: #7a1f3d;
+  --color-wine-dark: #5e1530;
+  --color-blush: #f6e7ec;
+  --color-sage: #3f6b55;
+  --color-amber: #9a6100;
+  --color-alert: #a3242c;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html { background: var(--color-paper); color: var(--color-ink); }
+body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--font-serif); letter-spacing: -0.01em; }
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full py-2.5 text-sm font-semibold transition
+      disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine;
+}
+
+@utility btn-primary {
+  @apply btn px-5 bg-wine text-white hover:bg-wine-dark;
+}
+
+@utility btn-ghost {
+  @apply btn px-5 border border-line bg-card text-ink hover:border-wine;
+}
+
+@utility btn-quiet {
+  @apply btn px-3 text-muted hover:text-ink;
+}
+
+@utility card {
+  @apply rounded-2xl border border-line bg-card p-5 sm:p-6;
+}
+
+@utility label {
+  @apply mb-1.5 block text-sm font-medium;
+}
+
+@utility input {
+  @apply w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-base outline-none
+      focus:border-wine focus:ring-2 focus:ring-blush;
+}
+
+@utility hint {
+  @apply mt-1 text-xs text-muted;
+}
+
+@utility eyebrow {
+  @apply text-xs font-semibold uppercase tracking-[0.12em] text-wine;
+}
+
+@utility pill {
+  @apply inline-flex items-center rounded-full bg-blush px-2.5 py-0.5 text-xs font-medium text-wine-dark;
+}
+
+@utility error {
+  @apply rounded-xl border border-alert/30 bg-alert/5 px-3.5 py-2.5 text-sm text-alert;
+}
+
+@utility notice {
+  @apply rounded-xl border border-line bg-blush/60 px-3.5 py-2.5 text-sm;
+}
+
+@utility data-table {
+  @apply w-full text-left text-sm;
+  & th { @apply border-b border-line py-2 pr-3 font-medium text-muted; }
+  & td { @apply border-b border-line py-2.5 pr-3 align-top; }
+}
