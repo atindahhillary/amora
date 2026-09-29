@@ -1,0 +1,19 @@
+import Link from "next/link";
+
+export function Logo({ href = "/" }: { href?: string }) {
+  return (
+    <Link href={href} className="inline-flex items-center gap-2 font-serif text-2xl font-semibold text-wine-dark italic">
+      <svg viewBox="0 0 512 512" className="h-8 w-8" aria-hidden>
+        <defs>
+          <linearGradient id="amora-logo" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#c2407a" />
+            <stop offset="1" stopColor="#6e1238" />
+          </linearGradient>
+        </defs>
+        <rect width="512" height="512" rx="112" fill="url(#amora-logo)" />
+        <path d="M256 396c-9 0-17-3-24-9-58-50-128-102-128-176 0-51 38-89 86-89 28 0 51 13 66 34 15-21 38-34 66-34 48 0 86 38 86 89 0 74-70 126-128 176-7 6-15 9-24 9z" fill="none" stroke="#f3d59b" strokeWidth="28" strokeLinejoin="round" />
+      </svg>
+      Amora
+    </Link>
+  );
+}
