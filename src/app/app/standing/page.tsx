@@ -10,7 +10,7 @@ export default async function StandingPage() {
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="text-3xl font-semibold">Your Standing</h1>
+        <h1 className="text-4xl">Your Standing</h1>
         <p className="mt-1 text-muted">Private to you. Nobody else sees it, and there are no hidden penalties: everything that affects it is listed here.</p>
       </div>
       <div className="card flex items-center gap-5">

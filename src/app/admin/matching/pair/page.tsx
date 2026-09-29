@@ -24,7 +24,7 @@ export default async function PairPage({ searchParams }: { searchParams: Promise
   return (
     <div className="space-y-5">
       <Link href="/admin/matching" className="btn-quiet px-0">← Matching</Link>
-      <h1 className="text-3xl font-semibold">Review pair · {score.total}</h1>
+      <h1 className="text-4xl">Review pair · {score.total}</h1>
       {excluded && <p className="error">This pair fails a hard filter: {excluded}</p>}
       {!excluded && score.pillars.intent < 60 && (
         <p className="error">Intent alignment is only {score.pillars.intent}%. They may want different things. Consider waiting a week for a better match.</p>
@@ -34,7 +34,7 @@ export default async function PairPage({ searchParams }: { searchParams: Promise
           const p = people.find((x) => x.id === c.id)!;
           return (
             <div key={c.id} className="card space-y-2">
-              <h2 className="text-xl font-semibold">{p.firstName}, {c.age}</h2>
+              <h2 className="text-2xl">{p.firstName}, {c.age}</h2>
               <p className="text-sm whitespace-pre-line">{p.profileBio}</p>
               <audio controls preload="none" src={`/api/voice/${c.id}`} className="w-full" />
             </div>

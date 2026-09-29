@@ -21,7 +21,7 @@ export default async function MembersPage({ searchParams }: { searchParams: Prom
   const tabs = ["pending", "waitlisted", "approved", "rejected"];
   return (
     <div className="space-y-5">
-      <h1 className="text-3xl font-semibold">Applications</h1>
+      <h1 className="text-4xl">Applications</h1>
       <div className="flex gap-2">
         {tabs.map((t) => (
           <a key={t} href={`?status=${t}`} className={`pill capitalize ${t === status ? "bg-wine text-white" : ""}`}>{t}</a>
@@ -31,7 +31,7 @@ export default async function MembersPage({ searchParams }: { searchParams: Prom
       {rows.map((m) => (
         <article key={m.id} className="card space-y-3">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <h2 className="text-xl font-semibold">{m.firstName}, {ageOn(m.birthDate)}</h2>
+            <h2 className="text-2xl">{m.firstName}, {ageOn(m.birthDate)}</h2>
             <span className="text-sm text-muted">{m.gender} seeking {m.seeking} · {maskPhone(m.phone)} · ID {m.idResult ?? "none"}</span>
           </div>
           <p className="text-sm">

@@ -11,7 +11,7 @@ export default async function VerifyPage({ searchParams }: { searchParams: Promi
     <div className="mx-auto max-w-sm py-10">
       <div className="card space-y-5">
         <div>
-          <h1 className="text-2xl font-semibold">Check your messages</h1>
+          <h1 className="text-3xl">Check your messages</h1>
           <p className="mt-1 text-muted">We sent a code to {maskPhone(phone)}.</p>
         </div>
         {dev && (

@@ -10,7 +10,7 @@ export default async function StandingReviewPage() {
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="text-3xl font-semibold">Penalty review</h1>
+        <h1 className="text-4xl">Penalty review</h1>
         <p className="mt-1 text-muted">No penalty counts until someone here applies it. When in doubt, dismiss.</p>
       </div>
       {rows.length === 0 && <p className="notice">Nothing waiting.</p>}

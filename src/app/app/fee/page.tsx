@@ -10,7 +10,7 @@ export default async function FeePage() {
   return (
     <div className="card space-y-4">
       <p className="eyebrow">Step 1</p>
-      <h1 className="text-2xl font-semibold">Application fee: KES {APPLICATION_FEE_KES}</h1>
+      <h1 className="text-3xl">Application fee: KES {APPLICATION_FEE_KES}</h1>
       <p className="text-muted">
         The fee keeps out fake and casual accounts and covers your identity check. If we can&apos;t offer you a
         place this season, it&apos;s refunded in full.

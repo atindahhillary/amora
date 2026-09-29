@@ -35,7 +35,7 @@ export default async function MatchesPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-semibold">Your matches</h1>
+        <h1 className="text-4xl">Your matches</h1>
         <p className="mt-1 text-muted">New matches arrive {formatNairobi(nextDropAt())}.</p>
       </div>
       <Section title="New this week" empty="No new matches right now. We only send matches we believe in.">

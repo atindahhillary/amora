@@ -5,7 +5,7 @@ export default async function SafetyPage() {
   const me = await requireMember();
   return (
     <div className="space-y-5">
-      <h1 className="text-3xl font-semibold">Safety</h1>
+      <h1 className="text-4xl">Safety</h1>
       <div className="card space-y-3">
         <p className="eyebrow">Trusted contact</p>
         <p className="text-muted">

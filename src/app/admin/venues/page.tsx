@@ -7,7 +7,7 @@ export default async function VenuesPage() {
     select * from venues order by active desc, name`;
   return (
     <div className="space-y-5">
-      <h1 className="text-3xl font-semibold">Partner venues</h1>
+      <h1 className="text-4xl">Partner venues</h1>
       <div className="card">
         <table className="data-table">
           <thead><tr><th>Name</th><th>Area</th><th>Type</th><th>Notes</th><th /></tr></thead>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Kanga } from "@/components/Kanga";
 import { PillarBars } from "@/components/PillarBars";
 import { SubmitButton } from "@/components/SubmitButton";
 import { requireMember } from "@/lib/auth";
@@ -27,13 +28,13 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       <Link href="/app/matches" className="btn-quiet px-0">← Matches</Link>
       <div className="card space-y-5">
         <div className="flex items-baseline justify-between gap-4">
-          <h1 className="text-3xl font-semibold">{o.firstName}, {ageOn(o.birthDate)}</h1>
+          <h1 className="text-4xl">{o.firstName}, <em>{ageOn(o.birthDate)}</em></h1>
           <span className="pill">{m.score}% aligned</span>
         </div>
-        <div className="rounded-xl bg-blush/50 p-4">
+        <Kanga jina="Haba na haba hujaza kibaba" translation="Little by little, the measure fills.">
           <p className="eyebrow">Why this match</p>
-          <p className="mt-2 font-serif text-lg leading-relaxed">{m.why}</p>
-        </div>
+          <p className="mt-2 font-serif text-xl leading-relaxed text-wine-dark italic">{m.why}</p>
+        </Kanga>
         <PillarBars pillars={m.pillars} />
         <div>
           <p className="eyebrow">In their words</p>

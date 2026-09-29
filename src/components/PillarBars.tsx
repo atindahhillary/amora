@@ -10,7 +10,7 @@ export function PillarBars({ pillars }: { pillars: Record<string, number> }) {
             <dd className="font-medium tabular-nums">{pillars[p] ?? 0}%</dd>
           </div>
           <div className="mt-1 h-1.5 rounded-full bg-blush">
-            <div className="h-1.5 rounded-full bg-wine" style={{ width: `${pillars[p] ?? 0}%` }} />
+            <div className="h-1.5 rounded-full bg-linear-to-r from-jacaranda to-wine" style={{ width: `${pillars[p] ?? 0}%` }} />
           </div>
         </div>
       ))}

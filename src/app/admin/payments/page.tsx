@@ -10,7 +10,7 @@ export default async function RefundsPage() {
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="text-3xl font-semibold">Refunds</h1>
+        <h1 className="text-4xl">Refunds</h1>
         <p className="mt-1 text-muted">
           Send these from the M-Pesa business portal (automatic B2C refunds come later), then mark them done.
           Application fees are refunded in full. Season exits after meeting someone get KES {MET_SOMEONE_REFUND_KES.toLocaleString()}.

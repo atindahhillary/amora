@@ -13,7 +13,7 @@ export default async function SeasonPage() {
     <div className="space-y-4">
       <div className="card space-y-4">
         <p className="eyebrow">You&apos;re in</p>
-        <h1 className="text-2xl font-semibold">Start your season</h1>
+        <h1 className="text-3xl">Start your season</h1>
         <ul className="space-y-2 text-muted">
           <li><strong className="text-ink">{SEASON_DAYS} days</strong> of curated matches, delivered every Thursday</li>
           <li>Voice intros, guided first conversations and vetted date venues</li>

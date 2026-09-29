@@ -19,7 +19,7 @@ export default async function MatchingPage({ searchParams }: { searchParams: Pro
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-semibold">Matching for {formatNairobi(drop)}</h1>
+        <h1 className="text-4xl">Matching for {formatNairobi(drop)}</h1>
         <p className="mt-1 text-muted">
           {candidates.length} members in a season. Suggestions below are the best pairs that fit everyone&apos;s weekly quota.
           You approve each one and write the note they&apos;ll read.

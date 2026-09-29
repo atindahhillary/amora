@@ -8,7 +8,7 @@ export default async function ProfilePage() {
   return (
     <div className="card space-y-4">
       <p className="eyebrow">Step 5</p>
-      <h1 className="text-2xl font-semibold">Your profile</h1>
+      <h1 className="text-3xl">Your profile</h1>
       <p className="text-muted">
         We drafted this from your answers. Make it sound like you: edit anything, then approve it. Your matches
         see it on their match card, next to the reason we matched you.

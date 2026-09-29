@@ -13,7 +13,7 @@ export default async function QuestionnairePage() {
     <div className="space-y-6">
       <div>
         <p className="eyebrow">Step 3 · {QUESTIONS.length} questions</p>
-        <h1 className="mt-1 text-3xl font-semibold">What you want, and how you live</h1>
+        <h1 className="mt-1 text-4xl">What you want, and how you live</h1>
         <p className="mt-2 text-muted">
           Answer honestly: this is what your matchmaker uses. Mark something as a dealbreaker only if you truly
           wouldn&apos;t date someone who answered differently. Nobody sees your individual answers.

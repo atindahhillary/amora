@@ -27,7 +27,7 @@ export default async function AdminHome() {
           {counts.help} member{counts.help > 1 ? "s" : ""} tapped &ldquo;I need help&rdquo; on a date. Call them now.
         </Link>
       )}
-      <h1 className="text-3xl font-semibold">Season 1 overview</h1>
+      <h1 className="text-4xl">Season 1 overview</h1>
 
       <section className="card space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">

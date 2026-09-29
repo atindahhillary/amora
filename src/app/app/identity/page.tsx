@@ -10,7 +10,7 @@ export default async function IdentityPage() {
   return (
     <div className="card space-y-4">
       <p className="eyebrow">Step 2</p>
-      <h1 className="text-2xl font-semibold">Verify your identity</h1>
+      <h1 className="text-3xl">Verify your identity</h1>
       <p className="text-muted">
         You&apos;ll take a short selfie video and a photo of your national ID. Our verification partner, Smile ID,
         confirms it&apos;s really you. Amora never stores your ID images.

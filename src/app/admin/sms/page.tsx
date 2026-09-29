@@ -6,7 +6,7 @@ export default async function SmsPage() {
     select * from sms_outbox order by id desc limit 100`;
   return (
     <div className="space-y-5">
-      <h1 className="text-3xl font-semibold">SMS log</h1>
+      <h1 className="text-4xl">SMS log</h1>
       <div className="card overflow-x-auto">
         <table className="data-table">
           <thead><tr><th>When</th><th>To</th><th>Message</th><th>Status</th></tr></thead>

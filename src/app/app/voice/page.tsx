@@ -9,7 +9,7 @@ export default async function VoicePage() {
   return (
     <div className="card space-y-4">
       <p className="eyebrow">Step 4</p>
-      <h1 className="text-2xl font-semibold">Your 30-second voice intro</h1>
+      <h1 className="text-3xl">Your 30-second voice intro</h1>
       <p className="text-muted">
         Your matches hear this before anything else, so let them hear you. Try: what a good week looks like
         for you, and what you&apos;re hoping to find this season.

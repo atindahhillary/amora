@@ -12,7 +12,7 @@ export function QuestionnaireForm({ answers, dealbreakers }: { answers: Record<s
     <form action={action} className="space-y-8">
       {pillars.map((p) => (
         <section key={p} className="card space-y-6">
-          <h2 className="text-xl font-semibold">{PILLAR_LABELS[p]}</h2>
+          <h2 className="text-2xl">{PILLAR_LABELS[p]}</h2>
           {QUESTIONS.filter((q) => q.pillar === p).map((q) => (
             <fieldset key={q.id} className="space-y-2">
               <legend className="font-medium">{q.prompt}</legend>

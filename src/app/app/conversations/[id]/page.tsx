@@ -42,7 +42,7 @@ export default async function ConversationPage({ params }: { params: Promise<{ i
       {live && <AutoRefresh />}
       <Link href="/app/matches" className="btn-quiet px-0">← Matches</Link>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h1 className="text-3xl font-semibold">{them.firstName}</h1>
+        <h1 className="text-4xl">{them.firstName}</h1>
         {c.status === "open" && <span className="pill">{daysLeft} {daysLeft === 1 ? "day" : "days"} left to reply, plan a date or close</span>}
       </div>
 
@@ -55,7 +55,7 @@ export default async function ConversationPage({ params }: { params: Promise<{ i
           ) : c.closedBy === me.id ? (
             <p>You closed this conversation respectfully. Thank you.</p>
           ) : (
-            <><p>{them.firstName} closed this conversation:</p><p className="font-serif text-lg">&ldquo;{c.closeMessage}&rdquo;</p></>
+            <><p>{them.firstName} closed this conversation:</p><p className="font-serif text-xl text-wine-dark italic">&ldquo;{c.closeMessage}&rdquo;</p></>
           )}
         </div>
       )}
@@ -108,7 +108,7 @@ export default async function ConversationPage({ params }: { params: Promise<{ i
           <ul className="space-y-2">
             {messages.map((m) => (
               <li key={m.id} className={`flex ${m.senderId === me.id ? "justify-end" : ""}`}>
-                <p className={`max-w-[80%] rounded-2xl px-3.5 py-2 text-sm whitespace-pre-line ${m.senderId === me.id ? "bg-wine text-white" : "bg-blush"}`}>
+                <p className={`max-w-[80%] rounded-2xl px-3.5 py-2 text-sm whitespace-pre-line ${m.senderId === me.id ? "bg-linear-to-br from-wine to-wine-dark text-white rounded-br-md" : "bg-lilac text-ink rounded-bl-md"}`}>
                   {m.body}
                 </p>
               </li>

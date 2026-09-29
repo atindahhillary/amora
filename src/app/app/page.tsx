@@ -18,7 +18,7 @@ export default async function Home() {
       <div className="space-y-6">
         <div>
           <p className="eyebrow">Your application</p>
-          <h1 className="mt-1 text-3xl font-semibold">Hi {me.firstName}</h1>
+          <h1 className="mt-1 text-4xl">Hi <em>{me.firstName}</em></h1>
         </div>
         {me.reviewStatus === "waitlisted" && (
           <p className="notice">You&apos;re on the waitlist. We open matching in balanced groups so everyone gets good matches, and we&apos;ll text you when your place opens.</p>
@@ -59,15 +59,15 @@ export default async function Home() {
     <div className="space-y-6">
       <div>
         <p className="eyebrow">Season active until {formatNairobi(season!.endsAt)}</p>
-        <h1 className="mt-1 text-3xl font-semibold">Hi {me.firstName}</h1>
+        <h1 className="mt-1 text-4xl">Hi <em>{me.firstName}</em></h1>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <Link href="/app/matches" className="card block hover:border-wine">
-          <p className="text-4xl font-semibold tabular-nums">{newMatches}</p>
+          <p className="font-serif text-5xl font-semibold text-wine tabular-nums">{newMatches}</p>
           <p className="mt-1 text-muted">{newMatches === 1 ? "match waiting for you" : "matches waiting for you"}</p>
         </Link>
         <Link href="/app/matches" className="card block hover:border-wine">
-          <p className="text-4xl font-semibold tabular-nums">{openConversations}</p>
+          <p className="font-serif text-5xl font-semibold text-jacaranda tabular-nums">{openConversations}</p>
           <p className="mt-1 text-muted">open conversations</p>
         </Link>
       </div>

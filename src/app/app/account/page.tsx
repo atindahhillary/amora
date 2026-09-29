@@ -11,7 +11,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
   const season = await activeSeason(me.id);
   return (
     <div className="space-y-5">
-      <h1 className="text-3xl font-semibold">Account</h1>
+      <h1 className="text-4xl">Account</h1>
       {left === "met_someone" && (
         <div className="notice space-y-1">
           <p className="font-medium">Congratulations. This is what Amora is for.</p>

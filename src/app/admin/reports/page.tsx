@@ -11,7 +11,7 @@ export default async function ReportsPage() {
     where r.status = 'open' order by (r.reason = 'date_help') desc, r.created_at`;
   return (
     <div className="space-y-5">
-      <h1 className="text-3xl font-semibold">Reports</h1>
+      <h1 className="text-4xl">Reports</h1>
       {rows.length === 0 && <p className="notice">No open reports.</p>}
       {rows.map((r) => (
         <div key={r.id} className={`card space-y-3 ${r.reason === "date_help" ? "border-alert" : ""}`}>
