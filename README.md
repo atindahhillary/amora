@@ -51,7 +51,7 @@ The scheduled job expires conversations, raises ghosting proposals, sends date r
 curl -H "Authorization: Bearer $CRON_SECRET" http://localhost:3000/api/cron/tick
 ```
 
-`vercel.json` runs it every 15 minutes on Vercel.
+`vercel.json` runs it once a day, because Vercel's Hobby plan allows only daily cron jobs. For launch it should run every 15 minutes (drop SMS, expiring conversations, date reminders): use a Pro plan (`*/15 * * * *`) or an external scheduler that calls the endpoint.
 
 ## Tests
 
@@ -66,7 +66,7 @@ The E2E suite needs a fresh database at `DATABASE_URL` (default `amora_e2e`) tha
 
 | Piece | Status |
 |---|---|
-| Postgres | Any Postgres. Supabase is recommended: use its pooled connection string as `DATABASE_URL` |
+| Postgres | Any Postgres. On Supabase, use the transaction pooler (port 6543) connection string as `DATABASE_URL`; prepared statements are switched off automatically for it. Enable RLS on every table so Supabase's REST API can't read them |
 | Hosting | Next.js 15 on Vercel |
 | SMS | Africa's Talking, implemented (`AT_*` env vars) |
 | M-Pesa | Daraja STK push and callback, implemented (`MPESA_*` env vars). Refunds are sent by hand from the M-Pesa portal |
