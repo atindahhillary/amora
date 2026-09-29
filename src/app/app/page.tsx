@@ -58,7 +58,7 @@ export default async function Home() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="eyebrow">Season active until {formatNairobi(season!.endsAt)}</p>
+        <p className="eyebrow">Membership active until {formatNairobi(season!.endsAt)} · <Link href="/app/season" className="underline">Renew</Link></p>
         <h1 className="mt-1 text-4xl">Hi <em>{me.firstName}</em></h1>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">

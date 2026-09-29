@@ -7,6 +7,7 @@ import { sql } from "@/lib/db";
 import { sendSms } from "@/lib/integrations/sms";
 import { exclusionReason, scorePair } from "@/lib/matching";
 import { loadCandidates, getSetting, remainingQuota, setSetting } from "@/lib/services/matching";
+import { advanceGift } from "@/lib/services/gifts";
 import { recordStanding } from "@/lib/services/standing";
 import { nextDropAt } from "@/lib/time";
 
@@ -127,4 +128,12 @@ export async function markRefundedAction(form: FormData): Promise<void> {
   await requireAdmin();
   await sql`update payments set status = 'refunded' where id = ${String(form.get("paymentId"))} and status = 'refund_requested'`;
   revalidatePath("/admin/payments");
+}
+
+export async function advanceGiftAction(form: FormData): Promise<void> {
+  await requireAdmin();
+  const to = String(form.get("to"));
+  if (to !== "dispatched" && to !== "delivered") return;
+  await advanceGift(String(form.get("giftId")), to);
+  revalidatePath("/admin/gifts");
 }

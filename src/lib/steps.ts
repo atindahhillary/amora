@@ -19,7 +19,7 @@ export const STEP_LABELS: Record<Exclude<Step, "ready">, string> = {
   voice: "Record a 30-second voice intro",
   profile: "Approve your profile",
   review: "Matchmaker review",
-  season: "Start your season",
+  season: "Start your membership",
 };
 
 export const STEP_PATHS: Record<Exclude<Step, "ready" | "review">, string> = {

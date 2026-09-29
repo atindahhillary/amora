@@ -1,8 +1,8 @@
-import { MATCHES_PER_WEEK } from "../config";
+import { MATCHES_PER_MONTH, REPLACE_PASSED_MATCHES } from "../config";
 import { sql } from "../db";
 import { pairKey, rankPairs, type Candidate } from "../matching";
 import type { Answers } from "../questions";
-import { ageOn, previousDropAt } from "../time";
+import { ageOn, nairobiMonth } from "../time";
 
 // Members who can be matched this week: approved, active, in an active season.
 export async function loadCandidates(): Promise<Candidate[]> {
@@ -37,15 +37,20 @@ export async function loadSkips(): Promise<Set<string>> {
   return new Set(rows.map((r) => pairKey(r.x, r.y)));
 }
 
+// Matches left for each member in the month of `dropAt`. With REPLACE_PASSED_MATCHES,
+// a match the other person passed on is handed back.
 export async function remainingQuota(dropAt: Date, ids: string[]): Promise<Map<string, number>> {
+  const { start, end } = nairobiMonth(dropAt);
   const rows = await sql<{ id: string; used: number }[]>`
     select id, count(*)::int as used from (
-      select member_a as id from matches where drop_at > ${previousDropAt(dropAt)} and drop_at <= ${dropAt}
+      select member_a as id, b_response as theirs from matches where drop_at >= ${start} and drop_at < ${end}
       union all
-      select member_b from matches where drop_at > ${previousDropAt(dropAt)} and drop_at <= ${dropAt}
-    ) t group by id`;
+      select member_b, a_response from matches where drop_at >= ${start} and drop_at < ${end}
+    ) t
+    where not (${REPLACE_PASSED_MATCHES} and theirs is not distinct from 'pass')
+    group by id`;
   const used = new Map(rows.map((r) => [r.id, r.used]));
-  return new Map(ids.map((id) => [id, MATCHES_PER_WEEK - (used.get(id) ?? 0)]));
+  return new Map(ids.map((id) => [id, MATCHES_PER_MONTH - (used.get(id) ?? 0)]));
 }
 
 export async function rankedForDrop(dropAt: Date) {

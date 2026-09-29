@@ -15,14 +15,13 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
       {left === "met_someone" && (
         <div className="notice space-y-1">
           <p className="font-medium">Congratulations. This is what Amora is for.</p>
-          {gift ? <p>Your friend&apos;s gift code is <strong className="tracking-wider">{gift}</strong>. They enter it when they start their season.</p>
-                : <p>Your refund will reach your M-Pesa within 5 working days.</p>}
+          {gift && <p>Your friend&apos;s code for a free month is <strong className="tracking-wider">{gift}</strong>. They enter it when they start their membership.</p>}
         </div>
       )}
       <div className="card space-y-1 text-sm">
         <p><span className="text-muted">Name:</span> {me.firstName}</p>
         <p><span className="text-muted">Phone:</span> {maskPhone(me.phone)}</p>
-        <p><span className="text-muted">Season:</span> {season ? `active until ${formatNairobi(season.endsAt)}` : "none active"}</p>
+        <p><span className="text-muted">Membership:</span> {season ? `active until ${formatNairobi(season.endsAt)}` : "not active"}</p>
         <p><span className="text-muted">Status:</span> {me.accountStatus}</p>
       </div>
       {(me.accountStatus === "paused" || me.accountStatus === "exited") && (
@@ -33,7 +32,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
       )}
       {season && (
         <div className="card space-y-3">
-          <p className="eyebrow">Leave your season</p>
+          <p className="eyebrow">Cancel membership</p>
           <ExitSeasonForm />
         </div>
       )}

@@ -14,9 +14,16 @@ export function nextDropAt(now: Date = new Date()): Date {
   return new Date(candidate.getTime() - TIMEZONE_OFFSET_HOURS * HOUR);
 }
 
-// Start of the drop week containing `drop` (the previous drop), used for weekly quotas.
-export function previousDropAt(drop: Date): Date {
-  return new Date(drop.getTime() - 7 * 24 * HOUR);
+// The Nairobi calendar month containing `d`, as [start, end) instants. Used for monthly quotas.
+export function nairobiMonth(d: Date): { start: Date; end: Date } {
+  const local = new Date(d.getTime() + TIMEZONE_OFFSET_HOURS * HOUR);
+  const y = local.getUTCFullYear();
+  const m = local.getUTCMonth();
+  const shift = TIMEZONE_OFFSET_HOURS * HOUR;
+  return {
+    start: new Date(Date.UTC(y, m, 1) - shift),
+    end: new Date(Date.UTC(y, m + 1, 1) - shift),
+  };
 }
 
 export function ageOn(birthDate: Date, on: Date = new Date()): number {

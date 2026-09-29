@@ -4,7 +4,6 @@ import { useActionState, useState } from "react";
 import { exitSeasonAction } from "../season-actions";
 import { deleteAccountAction } from "../account-actions";
 import { SubmitButton } from "@/components/SubmitButton";
-import { MET_SOMEONE_REFUND_KES } from "@/lib/config";
 
 export function ExitSeasonForm() {
   const [state, action] = useActionState(exitSeasonAction, undefined);
@@ -18,19 +17,10 @@ export function ExitSeasonForm() {
         <option value="not_for_me">Amora isn&apos;t for me</option>
       </select>
       {reason === "met_someone" && (
-        <fieldset className="space-y-2">
-          <label className="flex gap-3 rounded-xl border border-line p-3 text-sm has-[:checked]:border-wine">
-            <input type="radio" name="choice" value="partial_refund" required className="accent-wine" />
-            Refund KES {MET_SOMEONE_REFUND_KES.toLocaleString()} to my M-Pesa
-          </label>
-          <label className="flex gap-3 rounded-xl border border-line p-3 text-sm has-[:checked]:border-wine">
-            <input type="radio" name="choice" value="gift_season" className="accent-wine" />
-            Give a friend a free season instead
-          </label>
-        </fieldset>
+        <p className="notice">You&apos;ll get a code for a free month to give to a friend who&apos;s looking.</p>
       )}
       {state?.error && <p className="error">{state.error}</p>}
-      <SubmitButton className="btn-ghost">Leave this season</SubmitButton>
+      <SubmitButton className="btn-ghost">Cancel membership</SubmitButton>
     </form>
   );
 }

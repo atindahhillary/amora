@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { normalizeKenyanPhone } from "@/lib/phone";
-import { ageOn, nextDropAt } from "@/lib/time";
+import { ageOn, nairobiMonth, nextDropAt } from "@/lib/time";
 import { ghostCandidates, standingScore, standingTier } from "@/lib/standing";
 import { darajaTimestamp, parseStkCallback } from "@/lib/integrations/mpesa";
 import { validateAnswers, QUESTIONS } from "@/lib/questions";
@@ -32,6 +32,19 @@ describe("nextDropAt", () => {
   it("uses Nairobi's date, not UTC's, near midnight", () => {
     // Wednesday 22:30 UTC is already Thursday 01:30 in Nairobi
     expect(nextDropAt(new Date("2026-10-07T22:30:00Z")).toISOString()).toBe("2026-10-08T15:00:00.000Z");
+  });
+});
+
+describe("nairobiMonth", () => {
+  it("uses Nairobi's calendar month, not UTC's", () => {
+    // 30 Sep 22:00 UTC is already 1 Oct 01:00 in Nairobi
+    const m = nairobiMonth(new Date("2026-09-30T22:00:00Z"));
+    expect(m.start.toISOString()).toBe("2026-09-30T21:00:00.000Z");
+    expect(m.end.toISOString()).toBe("2026-10-31T21:00:00.000Z");
+  });
+  it("rolls over the year", () => {
+    const m = nairobiMonth(new Date("2026-12-15T12:00:00Z"));
+    expect(m.end.toISOString()).toBe("2026-12-31T21:00:00.000Z");
   });
 });
 

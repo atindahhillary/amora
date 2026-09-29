@@ -8,11 +8,16 @@ export const CITY = "Nairobi";
 export const TIMEZONE_OFFSET_HOURS = 3; // Africa/Nairobi, no daylight saving
 
 export const APPLICATION_FEE_KES = 300;
-export const SEASON_PRICE_KES = 3000;
-export const SEASON_DAYS = 90;
-export const MET_SOMEONE_REFUND_KES = 1500;
+// Monthly membership. Paid by M-Pesa each month; there is no auto-debit.
+export const MEMBERSHIP_PRICE_KES = 2500;
+export const MEMBERSHIP_DAYS = 30;
+export const RENEWAL_REMINDER_DAYS = 3;
 
-export const MATCHES_PER_WEEK = 2;
+// Up to 3 matches per calendar month (Nairobi time), released on Thursdays.
+export const MATCHES_PER_MONTH = 3;
+// A match the other person passed on doesn't use up one of your 3, so a month
+// is never spent on people who said no. Set to false for a hard cap of 3.
+export const REPLACE_PASSED_MATCHES = true;
 export const DROP_WEEKDAY = 4; // Thursday
 export const DROP_HOUR_LOCAL = 18;
 

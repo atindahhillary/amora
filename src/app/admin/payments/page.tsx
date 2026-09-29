@@ -1,5 +1,4 @@
 import { SubmitButton } from "@/components/SubmitButton";
-import { MET_SOMEONE_REFUND_KES } from "@/lib/config";
 import { sql } from "@/lib/db";
 import { markRefundedAction } from "../actions";
 
@@ -13,7 +12,7 @@ export default async function RefundsPage() {
         <h1 className="text-4xl">Refunds</h1>
         <p className="mt-1 text-muted">
           Send these from the M-Pesa business portal (automatic B2C refunds come later), then mark them done.
-          Application fees are refunded in full. Season exits after meeting someone get KES {MET_SOMEONE_REFUND_KES.toLocaleString()}.
+          Refunds are always the full amount: application fees for people we couldn&apos;t accept, and gifts the recipient declined.
         </p>
       </div>
       {rows.length === 0 && <p className="notice">Nothing to refund.</p>}
@@ -21,7 +20,7 @@ export default async function RefundsPage() {
         <div key={p.id} className="card flex flex-wrap items-center justify-between gap-3 text-sm">
           <p>
             <strong>{p.firstName ?? "Deleted member"}</strong> · {p.kind.replace("_", " ")} · refund KES{" "}
-            {(p.kind === "application_fee" ? p.amountKes : MET_SOMEONE_REFUND_KES).toLocaleString()} to +{p.phone} · receipt {p.receipt ?? "–"}
+            {p.amountKes.toLocaleString()} to +{p.phone} · receipt {p.receipt ?? "–"}
           </p>
           <form action={markRefundedAction}>
             <input type="hidden" name="paymentId" value={p.id} />

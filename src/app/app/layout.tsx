@@ -6,6 +6,7 @@ import { logoutAction } from "../(public)/actions";
 const NAV = [
   { href: "/app", label: "Home" },
   { href: "/app/matches", label: "Matches" },
+  { href: "/app/gifts", label: "Gifts" },
   { href: "/app/standing", label: "Standing" },
   { href: "/app/safety", label: "Safety" },
   { href: "/app/account", label: "Account" },

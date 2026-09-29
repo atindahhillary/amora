@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { GiftArt } from "@/components/GiftArt";
 import { SubmitButton } from "@/components/SubmitButton";
 import { requireMember } from "@/lib/auth";
 import { CLOSE_TEMPLATES, GUIDED_PROMPTS } from "@/lib/config";
@@ -162,6 +163,16 @@ export default async function ConversationPage({ params }: { params: Promise<{ i
             <PlanDateForm conversationId={c.id} venues={venues} />
           )}
         </section>
+      )}
+
+      {live && stage === "chat" && (
+        <Link href={`/app/gifts?to=${c.id}`} className="card flex items-center gap-4 hover:border-wine">
+          <GiftArt category="flowers" className="h-14 w-14 shrink-0" />
+          <div>
+            <p className="font-serif text-xl text-wine-dark">Send {them.firstName} flowers</p>
+            <p className="text-sm text-muted">Or chocolates, or a handwritten card. They choose where it&apos;s delivered.</p>
+          </div>
+        </Link>
       )}
 
       {live && (

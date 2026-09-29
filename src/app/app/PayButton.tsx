@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { confirmMockPaymentAction, startPaymentAction } from "./payment-actions";
 import { SubmitButton } from "@/components/SubmitButton";
 
-export function PayButton({ kind, label, mock, doneHref }: { kind: string; label: string; mock: boolean; doneHref: string }) {
+export function PayButton({ kind, label, mock, doneHref, giftId }: { kind: string; label: string; mock: boolean; doneHref: string; giftId?: string }) {
   const [state, action] = useActionState(startPaymentAction, undefined);
   const [status, setStatus] = useState<string>("idle");
   const [confirming, startConfirm] = useTransition();
@@ -49,6 +49,7 @@ export function PayButton({ kind, label, mock, doneHref }: { kind: string; label
       {state?.error && <p className="error" role="alert">{state.error}</p>}
       {status === "failed" && <p className="error" role="alert">The payment didn&apos;t go through. You can try again.</p>}
       <input type="hidden" name="kind" value={kind} />
+      {giftId && <input type="hidden" name="giftId" value={giftId} />}
       <SubmitButton pendingText="Sending request to your phone…">{label}</SubmitButton>
     </form>
   );

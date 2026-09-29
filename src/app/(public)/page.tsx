@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { Kanga } from "@/components/Kanga";
 import { Petals } from "@/components/Petals";
-import { APPLICATION_FEE_KES, MATCHES_PER_WEEK, SEASON_DAYS, SEASON_PRICE_KES } from "@/lib/config";
+import { APPLICATION_FEE_KES, MATCHES_PER_MONTH, MEMBERSHIP_PRICE_KES } from "@/lib/config";
 
 const PROMISES = [
   { title: "Everyone is verified", body: "Phone, selfie and national ID, checked before anyone sees you. One person, one account." },
-  { title: `${MATCHES_PER_WEEK} matches, every Thursday`, body: "Chosen by a matchmaker, not a swipe. Each one comes with the reason we think it could work." },
+  { title: `${MATCHES_PER_MONTH} matches a month`, body: "Chosen by a matchmaker, not a swipe, and released on Thursdays. Each one comes with the reason we think it could work. If someone passes, you get that chance back." },
   { title: "Closing is a kindness", body: "Not feeling it? One tap sends a respectful goodbye. Ghosting is the only thing that counts against you." },
   { title: "A safe first date", body: "Vetted venues, a trusted contact who knows where you are, and a check-in on the night." },
 ];
@@ -21,8 +21,8 @@ export default function Landing() {
             Fewer matches.<br />Real people.<br /><em>Real love.</em>
           </h1>
           <p className="mt-5 max-w-xl text-lg text-muted">
-            Amora is curated matchmaking for adults who want a committed relationship. No swiping, no browsing,
-            no strangers you can&apos;t verify.
+            Amora is a matchmaking service, not a dating app. For adults who want a committed relationship: no swiping,
+            no browsing, no strangers you can&apos;t verify.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link href="/apply" className="btn-primary px-7 py-3 text-base">Apply for Season 1</Link>
@@ -56,7 +56,7 @@ export default function Landing() {
         <ol className="mt-5 grid gap-5 sm:grid-cols-3">
           <li><p className="eyebrow">1 · Apply</p><p className="mt-1 text-muted">Verify your phone and ID, answer 25 questions about what you want, and record a 30-second voice intro.</p></li>
           <li><p className="eyebrow">2 · Get approved</p><p className="mt-1 text-muted">We open matching only when there are enough verified people on both sides. We&apos;d rather wait than send you poor matches.</p></li>
-          <li><p className="eyebrow">3 · Meet</p><p className="mt-1 text-muted">KES {SEASON_PRICE_KES.toLocaleString()} for {SEASON_DAYS} days. Meet someone and leave early? Get part of it back, or gift a season to a friend.</p></li>
+          <li><p className="eyebrow">3 · Meet</p><p className="mt-1 text-muted">KES {MEMBERSHIP_PRICE_KES.toLocaleString()} a month, paid by M-Pesa, cancel any time. Met someone? Leave and give a friend a free month.</p></li>
         </ol>
       </section>
     </div>

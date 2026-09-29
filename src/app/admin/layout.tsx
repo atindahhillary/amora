@@ -8,6 +8,7 @@ const NAV = [
   ["/admin/matching", "Matching"],
   ["/admin/standing", "Penalty review"],
   ["/admin/reports", "Reports"],
+  ["/admin/gifts", "Gifts"],
   ["/admin/venues", "Venues"],
   ["/admin/payments", "Refunds"],
   ["/admin/sms", "SMS log"],

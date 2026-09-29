@@ -14,20 +14,21 @@ Curated, ID-verified, intention-first matchmaking for Nairobi. This is the **Sea
 - 25-question values and intent questionnaire with self-declared dealbreakers. Ethnicity and tribe are never asked or inferred
 - 30-second voice intro (recorded in the browser or uploaded)
 - Profile drafted by Claude from the answers, then edited and approved by the member
-- KES 3,000 / 90-day season pass. A member who leaves because they met someone gets a partial refund or a gift season for a friend
-- Thursday match drop: a match card with three compatibility pillars and a "Why this match" note approved by the matchmaker. Options are Accept, Pass or Decide later
+- KES 2,500 monthly membership, paid by M-Pesa each month with a renewal reminder by SMS (no auto-debit). A member who leaves because they met someone gets a free month to give a friend
+- Up to 3 matches a month, released on Thursdays. A match the other person passes on doesn't count against your 3 (`REPLACE_PASSED_MATCHES` in `src/lib/config.ts`). Each arrives as a match card with three compatibility pillars and a "Why this match" note approved by the matchmaker. Options are Accept, Pass or Decide later
 - Staged conversation in a 7-day window: swap voice intros, then three guided prompts (you see their answer after you share yours), then free chat
 - One-tap respectful close, which never counts against you. A safety close blocks, reports, and routes the case to a person
 - Date bridge: partner venues, the date plan texted to a trusted contact, an "I'm okay" / "I need help" check-in, and no-show reporting
+- **Gifts:** flowers, chocolates or a handwritten card, sent only to someone you're already talking to. The recipient accepts and gives a delivery location that the sender never sees; declining refunds the sender. A matchmaker queue handles fulfilment with a partner florist, and delivery details are deleted once delivered
 - Private, explainable **Standing** panel. Every event is listed, and penalties show as "under review" until a person applies them
 - Data export (JSON) and account deletion
 
 **Matchmakers** (`/admin`, for phones in `ADMIN_PHONES`)
 - Density dashboard by gender. Matching can only be opened once both sides reach a minimum
 - Application review (approve, waitlist or reject, with an SMS to the applicant)
-- Weekly pair suggestions: hard filters, then a weighted score (intent 45%, values 35%, everyday life 20%), then an allocation that serves the most constrained members first, within a 2-per-week quota
+- Weekly pair suggestions: hard filters, then a weighted score (intent 45%, values 35%, everyday life 20%), then an allocation that serves the most constrained members first, within a 3-per-month quota
 - Pair review showing both profiles, both voice intros, where they differ, a warning when intent alignment is low, and a Claude-drafted note to edit before approving
-- Penalty review queue (ghosting, no-shows), a reports queue with "I need help" alerts first, venues, refunds and the SMS log
+- Gift fulfilment queue, penalty review queue (ghosting, no-shows), a reports queue with "I need help" alerts first, venues, refunds and the SMS log
 
 ## Running locally
 
@@ -39,7 +40,7 @@ cp .env.example .env.local        # mock mode is on by default
 createdb amora
 export $(grep -v '^#' .env.local | grep -v '=$' | xargs)
 npm run db:migrate
-npm run db:seed -- --demo         # venues + 12 approved demo members in a season
+npm run db:seed -- --demo         # venues + 12 approved demo members with an active membership
 npm run dev
 ```
 

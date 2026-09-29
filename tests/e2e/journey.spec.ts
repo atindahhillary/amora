@@ -90,10 +90,10 @@ test("a member goes from application to a planned first date", async ({ browser 
 
   // --- She starts her season
   await her.goto("/app/season");
-  await her.getByRole("button", { name: /Pay KES 3,000/ }).click();
+  await her.getByRole("button", { name: /Pay KES 2,500/ }).click();
   await her.getByRole("button", { name: "Test mode: approve payment" }).click();
   await her.waitForURL(/\/app$/);
-  await expect(her.getByText(/Season active until/)).toBeVisible();
+  await expect(her.getByText(/Membership active until/)).toBeVisible();
 
   // --- Matchmaker opens matching and approves a pair with her
   await admin.goto("/admin");
@@ -152,6 +152,35 @@ test("a member goes from application to a planned first date", async ({ browser 
   await her.getByRole("button", { name: "Send" }).click();
   await him.goto(convUrl);
   await expect(him.getByText("Hi! Coffee this weekend?")).toBeVisible();
+
+  // --- Gift: she sends flowers, he accepts privately, the matchmaker delivers
+  await her.getByRole("link", { name: /Send .* flowers/ }).click();
+  await her.getByText("A dozen red roses").click();
+  await her.getByLabel("A short note (optional)").fill("For Saturday");
+  await her.getByRole("button", { name: "Continue to payment" }).click();
+  await her.getByRole("button", { name: /Pay KES 3,500/ }).click();
+  await her.getByRole("button", { name: "Test mode: approve payment" }).click();
+  await her.waitForURL(/\/app\/gifts\?sent=1/);
+  await expect(her.getByText("Waiting for them to accept")).toBeVisible();
+
+  await him.goto("/app/gifts");
+  await expect(him.getByText(/sent you a dozen red roses/)).toBeVisible();
+  await him.getByLabel("Area").fill("Kilimani");
+  await him.getByLabel("Where to deliver").fill("Office reception, Timau Plaza");
+  await him.getByRole("button", { name: "Accept gift" }).click();
+  await expect(him.getByText("Accepted · being prepared")).toBeVisible();
+
+  await admin.goto("/admin/gifts");
+  await expect(admin.getByText("Timau Plaza")).toBeVisible();
+  await admin.getByRole("button", { name: "Mark as dispatched" }).click();
+  await admin.getByRole("button", { name: "Mark as delivered" }).click();
+  await expect(admin.getByText("Nothing to deliver right now.")).toBeVisible();
+  const [giftRow] = await sql<{ status: string; details: string | null }[]>`
+    select status, delivery_details as details from gifts order by created_at desc limit 1`;
+  expect(giftRow).toEqual({ status: "delivered", details: null });
+  await her.goto("/app/gifts");
+  await expect(her.getByText("Delivered", { exact: true })).toBeVisible();
+  await him.goto(convUrl);
 
   // --- Date bridge: he suggests, she confirms
   await him.getByLabel("Partner venue").selectOption({ index: 1 });
