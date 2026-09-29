@@ -65,6 +65,18 @@ test("a member goes from application to a planned first date", async ({ browser 
     await group.locator("label").first().click();
   }
   await her.getByRole("button", { name: "Save answers" }).click();
+  await her.waitForURL(/\/app\/vetting/);
+
+  // --- Vetting questions: save partway, come back, then submit
+  const boxes = her.locator("textarea");
+  await expect(boxes).toHaveCount(25);
+  await boxes.nth(0).fill("Marriage. I have built my career and I am ready to build a home with someone.");
+  await her.getByRole("button", { name: "Save progress" }).click();
+  await expect(her.getByText(/Saved 1 of 25/)).toBeVisible();
+  await her.getByRole("button", { name: "Submit my answers" }).click();
+  await expect(her.getByText(/24 answers need a little more/)).toBeVisible();
+  for (let i = 1; i < 25; i++) await boxes.nth(i).fill(`A considered answer number ${i}, written in my own words.`);
+  await her.getByRole("button", { name: "Submit my answers" }).click();
   await her.waitForURL(/\/app\/voice/);
 
   // --- Voice intro: record with Chromium's fake microphone
@@ -85,6 +97,8 @@ test("a member goes from application to a planned first date", async ({ browser 
   await signIn(admin, "0700000001");
   await admin.goto("/admin/members");
   const card = admin.locator("article", { hasText: "Wanjiku" });
+  await card.getByText(/answers in their own words \(25\)/).click();
+  await expect(card.getByText("Marriage. I have built my career")).toBeVisible();
   await card.getByRole("button", { name: "Approve" }).click();
   await expect(admin.locator("article", { hasText: "Wanjiku" })).toHaveCount(0);
 

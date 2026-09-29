@@ -5,7 +5,7 @@ import { activeSeason } from "@/lib/services/payments";
 import { STEP_LABELS, STEP_PATHS, nextStep, type Step } from "@/lib/steps";
 import { formatNairobi, nextDropAt } from "@/lib/time";
 
-const ORDER: Exclude<Step, "ready">[] = ["fee", "identity", "questionnaire", "voice", "profile", "review", "season"];
+const ORDER: Exclude<Step, "ready">[] = ["fee", "identity", "questionnaire", "vetting", "voice", "profile", "review", "season"];
 
 export default async function Home() {
   const me = await requireMember();
@@ -72,6 +72,13 @@ export default async function Home() {
         </Link>
       </div>
       <p className="notice">Your next matches arrive <strong>{formatNairobi(drop)}</strong>. We&apos;ll text you.</p>
+      {!me.vettingDoneAt && (
+        <Link href="/app/vetting" className="card block hover:border-wine">
+          <p className="eyebrow">New</p>
+          <p className="font-serif text-2xl text-wine-dark">Tell your matchmaker more about you</p>
+          <p className="text-sm text-muted">A few questions in your own words help us choose better matches for you. Only matchmakers read them.</p>
+        </Link>
+      )}
     </div>
   );
 }

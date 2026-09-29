@@ -5,7 +5,7 @@ import { sql } from "@/lib/db";
 export async function GET() {
   const me = await currentMember();
   if (!me) return new Response("unauthorised", { status: 401 });
-  const [answers, payments, seasons, identity, standing, sent, matches, gifts] = await Promise.all([
+  const [answers, payments, seasons, identity, standing, sent, matches, gifts, vetting] = await Promise.all([
     sql`select question_id, value from answers where member_id = ${me.id}`,
     sql`select kind, amount_kes, status, receipt, created_at, paid_at from payments where member_id = ${me.id}`,
     sql`select starts_at, ends_at, exit_reason, exited_at from seasons where member_id = ${me.id}`,
@@ -18,6 +18,7 @@ export async function GET() {
           case when recipient_id = ${me.id} then delivery_area end as my_delivery_area,
           case when recipient_id = ${me.id} then delivery_details end as my_delivery_details, created_at
         from gifts where sender_id = ${me.id} or recipient_id = ${me.id}`,
+    sql`select question_id, body, updated_at from vetting_answers where member_id = ${me.id}`,
   ]);
   const { id, phone, firstName, birthDate, gender, seeking, prefAgeMin, prefAgeMax, dealbreakers, profileBio,
     trustedContactName, trustedContactPhone, createdAt } = me;
@@ -25,7 +26,7 @@ export async function GET() {
     exportedAt: new Date().toISOString(),
     profile: { id, phone, firstName, birthDate, gender, seeking, prefAgeMin, prefAgeMax, dealbreakers, profileBio,
       trustedContactName, trustedContactPhone, createdAt },
-    answers, payments, memberships: seasons, identity, standing, messagesSent: sent, matches, gifts,
+    answers, payments, memberships: seasons, identity, standing, messagesSent: sent, matches, gifts, vettingAnswers: vetting,
     note: "Voice intro audio is available at /api/voice/" + id,
   };
   return new Response(JSON.stringify(body, null, 2), {

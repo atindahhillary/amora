@@ -20,6 +20,7 @@ Curated, ID-verified, intention-first matchmaking for Nairobi. This is the **Sea
 - One-tap respectful close, which never counts against you. A safety close blocks, reports, and routes the case to a person
 - Date bridge: partner venues, the date plan texted to a trusted contact, an "I'm okay" / "I need help" check-in, and no-show reporting
 - **Gifts:** flowers, chocolates or a handwritten card, sent only to someone you're already talking to. The recipient accepts and gives a delivery location that the sender never sees; declining refunds the sender. A matchmaker queue handles fulfilment with a partner florist, and delivery details are deleted once delivered
+- **Vetting questions:** 25 open-ended questions in six sections (intent and readiness, communication, values, children and family, shared experience, marriage), saved as you go. Only matchmakers read them, at application review and pair review; they are never shown to matches
 - Private, explainable **Standing** panel. Every event is listed, and penalties show as "under review" until a person applies them
 - Data export (JSON) and account deletion
 

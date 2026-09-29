@@ -62,7 +62,7 @@ export async function questionnaireAction(_: FormState, form: FormData): Promise
   });
   const draft = await draftProfile(me.firstName, answers);
   await sql`update members set profile_draft = ${draft} where id = ${me.id}`;
-  redirect(me.voiceDoneAt ? "/app/profile" : "/app/voice");
+  redirect(!me.vettingDoneAt ? "/app/vetting" : me.voiceDoneAt ? "/app/profile" : "/app/voice");
 }
 
 export async function approveProfileAction(_: FormState, form: FormData): Promise<FormState> {

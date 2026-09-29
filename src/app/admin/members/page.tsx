@@ -1,4 +1,5 @@
 import { SubmitButton } from "@/components/SubmitButton";
+import { VettingAnswers } from "@/components/VettingAnswers";
 import { sql } from "@/lib/db";
 import { maskPhone } from "@/lib/phone";
 import { QUESTION_BY_ID } from "@/lib/questions";
@@ -40,6 +41,7 @@ export default async function MembersPage({ searchParams }: { searchParams: Prom
           </p>
           <p className="leading-relaxed whitespace-pre-line">{m.profileBio}</p>
           <audio controls preload="none" src={`/api/voice/${m.id}`} className="w-full" />
+          <VettingAnswers memberId={m.id} name={m.firstName} />
           <div className="flex flex-wrap gap-2">
             <form action={reviewMemberAction} className="flex flex-wrap gap-2">
               <input type="hidden" name="memberId" value={m.id} />

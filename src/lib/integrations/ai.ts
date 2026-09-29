@@ -42,11 +42,14 @@ async function generate(system: string, prompt: string): Promise<string | null> 
 
 const PROFILE_SYSTEM = `You write short dating profiles for Amora, a curated, marriage-minded matchmaking service in Nairobi.
 Write in first person, warm and plain, 60 to 90 words, no emojis, no hashtags, no clichés like "partner in crime" or "love to laugh".
-Use only what the answers say. Never mention or guess ethnicity, tribe, income or appearance.
+Use only what the answers say. Never mention or guess ethnicity, tribe, income or appearance, and never mention past relationships, fears or anything painful.
 Return only the profile text.`;
 
-export async function draftProfile(firstName: string, answers: Answers): Promise<string> {
-  const text = await generate(PROFILE_SYSTEM, `Name: ${firstName}\nQuestionnaire answers:\n${describe(answers)}`);
+// `ownWords` are the member's own vetting answers. They only shape the draft, which
+// the member edits and approves; the answers themselves are never shown to matches.
+export async function draftProfile(firstName: string, answers: Answers, ownWords: string[] = []): Promise<string> {
+  const extra = ownWords.length ? `\nIn their own words:\n${ownWords.map((w) => `- ${w}`).join("\n")}` : "";
+  const text = await generate(PROFILE_SYSTEM, `Name: ${firstName}\nQuestionnaire answers:\n${describe(answers)}${extra}`);
   return text ?? fallbackProfile(answers);
 }
 

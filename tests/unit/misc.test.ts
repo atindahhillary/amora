@@ -120,15 +120,32 @@ describe("validateAnswers", () => {
 });
 
 describe("nextStep", () => {
-  const blank = { feePaidAt: null, idVerifiedAt: null, questionnaireDoneAt: null, voiceDoneAt: null, profileApprovedAt: null, reviewStatus: "pending" as const };
+  const blank = { feePaidAt: null, idVerifiedAt: null, questionnaireDoneAt: null, vettingDoneAt: null, voiceDoneAt: null, profileApprovedAt: null, reviewStatus: "pending" as const };
   const d = new Date();
   it("puts the fee before the ID check", () => expect(nextStep(blank, false)).toBe("fee"));
-  it("waits for review after the profile", () => {
-    expect(nextStep({ ...blank, feePaidAt: d, idVerifiedAt: d, questionnaireDoneAt: d, voiceDoneAt: d, profileApprovedAt: d }, false)).toBe("review");
+  it("asks the vetting questions after the questionnaire", () => {
+    expect(nextStep({ ...blank, feePaidAt: d, idVerifiedAt: d, questionnaireDoneAt: d }, false)).toBe("vetting");
+    expect(nextStep({ ...blank, feePaidAt: d, idVerifiedAt: d, questionnaireDoneAt: d, vettingDoneAt: d }, false)).toBe("voice");
   });
-  it("asks for a season once approved", () => {
-    const all = { feePaidAt: d, idVerifiedAt: d, questionnaireDoneAt: d, voiceDoneAt: d, profileApprovedAt: d, reviewStatus: "approved" as const };
+  it("waits for review after the profile", () => {
+    expect(nextStep({ ...blank, feePaidAt: d, idVerifiedAt: d, questionnaireDoneAt: d, vettingDoneAt: d, voiceDoneAt: d, profileApprovedAt: d }, false)).toBe("review");
+  });
+  it("asks for a membership once approved", () => {
+    const all = { feePaidAt: d, idVerifiedAt: d, questionnaireDoneAt: d, vettingDoneAt: d, voiceDoneAt: d, profileApprovedAt: d, reviewStatus: "approved" as const };
     expect(nextStep(all, false)).toBe("season");
     expect(nextStep(all, true)).toBe("ready");
+  });
+  it("doesn't lock out members approved before vetting existed", () => {
+    const old = { feePaidAt: d, idVerifiedAt: d, questionnaireDoneAt: d, vettingDoneAt: null, voiceDoneAt: d, profileApprovedAt: d, reviewStatus: "approved" as const };
+    expect(nextStep(old, true)).toBe("ready");
+  });
+});
+
+describe("vetting questions", () => {
+  it("has 25 questions with unique ids across 6 sections", async () => {
+    const { VETTING_SECTIONS, VETTING_QUESTIONS } = await import("@/lib/vetting");
+    expect(VETTING_SECTIONS).toHaveLength(6);
+    expect(VETTING_QUESTIONS).toHaveLength(25);
+    expect(new Set(VETTING_QUESTIONS.map((q) => q.id)).size).toBe(25);
   });
 });

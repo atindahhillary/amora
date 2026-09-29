@@ -76,6 +76,7 @@ export interface Member {
   feePaidAt: Date | null;
   idVerifiedAt: Date | null;
   questionnaireDoneAt: Date | null;
+  vettingDoneAt: Date | null;
   dealbreakers: string[];
   voiceDoneAt: Date | null;
   profileDraft: string | null;

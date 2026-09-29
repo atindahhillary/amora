@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PillarBars } from "@/components/PillarBars";
+import { VettingAnswers } from "@/components/VettingAnswers";
 import { sql } from "@/lib/db";
 import { draftWhy } from "@/lib/integrations/ai";
 import { exclusionReason, scorePair } from "@/lib/matching";
@@ -37,6 +38,7 @@ export default async function PairPage({ searchParams }: { searchParams: Promise
               <h2 className="text-2xl">{p.firstName}, {c.age}</h2>
               <p className="text-sm whitespace-pre-line">{p.profileBio}</p>
               <audio controls preload="none" src={`/api/voice/${c.id}`} className="w-full" />
+              <VettingAnswers memberId={c.id} name={p.firstName} />
             </div>
           );
         })}
