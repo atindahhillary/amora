@@ -27,6 +27,12 @@ describe("exclusionReason", () => {
     expect(exclusionReason(person("a", { age: 38 }), man("b", { prefAgeMax: 35 }))).toBe("age");
   });
 
+  it("accepts members up to 55 and nobody older", () => {
+    const older = { prefAgeMin: 45, prefAgeMax: 55 };
+    expect(exclusionReason(person("a", { age: 50, ...older }), man("b", { age: 55, ...older }))).toBeNull();
+    expect(exclusionReason(person("a", { age: 50, ...older }), man("b", { age: 56, ...older, prefAgeMax: 60 }))).toBe("age");
+  });
+
   it("enforces self-declared dealbreakers in either direction", () => {
     const a = person("a", { dealbreakers: ["smoking"] }, { smoking: 0 });
     expect(exclusionReason(a, man("b", {}, { smoking: 2 }))).toBe("dealbreaker:smoking");

@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { isAdminPhone, sendOtp, startSession, verifyOtp, endSession } from "@/lib/auth";
-import { AGE_MAX, AGE_MIN } from "@/lib/config";
+import { AGE_MAX, AGE_MIN, DEFAULT_AGE_SPREAD } from "@/lib/config";
 import { sql } from "@/lib/db";
 import { normalizeKenyanPhone } from "@/lib/phone";
 import { ageOn } from "@/lib/time";
@@ -16,8 +16,8 @@ const applySchema = z.object({
   birthDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Enter your date of birth"),
   gender: z.enum(["woman", "man"], { message: "Choose how you identify" }),
   seeking: z.enum(["woman", "man"], { message: "Choose who you'd like to meet" }),
-  prefAgeMin: z.coerce.number().int(),
-  prefAgeMax: z.coerce.number().int(),
+  prefAgeMin: z.union([z.literal(""), z.coerce.number().int()]).optional(),
+  prefAgeMax: z.union([z.literal(""), z.coerce.number().int()]).optional(),
   intent: z.literal("serious", { message: "Amora is only for people looking for a committed relationship" }),
   consentData: z.literal("on", { message: "Please agree to how we handle your data" }),
   consentSensitive: z.literal("on", { message: "Please consent to identity and preference processing" }),
@@ -40,8 +40,10 @@ export async function applyAction(_: FormState, form: FormData): Promise<FormSta
   if (age < AGE_MIN || age > AGE_MAX) {
     return { error: `Season 1 is for people aged ${AGE_MIN} to ${AGE_MAX}. We'll open to more ages later.` };
   }
-  const min = Math.max(AGE_MIN, d.prefAgeMin);
-  const max = Math.min(AGE_MAX, d.prefAgeMax);
+  const wantMin = typeof d.prefAgeMin === "number" ? d.prefAgeMin : age - DEFAULT_AGE_SPREAD;
+  const wantMax = typeof d.prefAgeMax === "number" ? d.prefAgeMax : age + DEFAULT_AGE_SPREAD;
+  const min = Math.max(AGE_MIN, wantMin);
+  const max = Math.min(AGE_MAX, wantMax);
   if (min > max) return { error: "Check the age range you'd like to meet" };
 
   const [existing] = await sql`select id from members where phone = ${phone}`;

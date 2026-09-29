@@ -1,8 +1,10 @@
 // Product decisions live here so they are one-line changes, not refactors.
 
-// The concept note says 25+ in Section 3 and 21+ in the wireframe. Season 1 uses 25 to 40.
+// Season 1 is open to ages 25 to 55.
 export const AGE_MIN = 25;
-export const AGE_MAX = 40;
+export const AGE_MAX = 55;
+// When an applicant leaves their preferred age range blank, suggest this many years either side of their own age.
+export const DEFAULT_AGE_SPREAD = 8;
 
 export const CITY = "Nairobi";
 export const TIMEZONE_OFFSET_HOURS = 3; // Africa/Nairobi, no daylight saving

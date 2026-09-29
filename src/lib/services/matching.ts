@@ -81,6 +81,30 @@ export async function densityReport() {
   };
 }
 
+export const AGE_BANDS = [
+  { label: "25–34", min: 25, max: 34 },
+  { label: "35–44", min: 35, max: 44 },
+  { label: "45–55", min: 45, max: 55 },
+] as const;
+
+// Active members by age band and gender. A band that's thin on one side will leave
+// people in it without matches, whatever the overall ratio says.
+export async function densityByAge() {
+  const rows = await sql<{ gender: string; age: number }[]>`
+    select m.gender, date_part('year', age(m.birth_date))::int as age from members m
+    where m.account_status = 'active' and m.review_status = 'approved'
+      and exists (select 1 from seasons s where s.member_id = m.id and s.exited_at is null
+                  and s.starts_at <= now() and s.ends_at > now())`;
+  return AGE_BANDS.map((b) => {
+    const inBand = rows.filter((r) => r.age >= b.min && r.age <= b.max);
+    return {
+      label: b.label,
+      woman: inBand.filter((r) => r.gender === "woman").length,
+      man: inBand.filter((r) => r.gender === "man").length,
+    };
+  });
+}
+
 export async function getSetting<T>(key: string, fallback: T): Promise<T> {
   const [row] = await sql<{ value: T }[]>`select value from settings where key = ${key}`;
   return row ? row.value : fallback;

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { AGE_MAX, AGE_MIN } from "@/lib/config";
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -13,7 +14,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       </header>
       <main className="flex-1">{children}</main>
       <footer className="py-8 text-xs text-muted">
-        Amora Season 1 · Nairobi · Ages 25 to 40 · Registered with the ODPC before launch
+        Amora Season 1 · Nairobi · Ages {AGE_MIN} to {AGE_MAX} · Registered with the ODPC before launch
       </footer>
     </div>
   );

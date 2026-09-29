@@ -7,7 +7,7 @@ Curated, ID-verified, intention-first matchmaking for Nairobi. This is the **Sea
 ## What's built
 
 **Members** (`/app`)
-- Application with a 25 to 40 age gate (one constant in `src/lib/config.ts`), and explicit consent for sensitive data under the Kenya Data Protection Act
+- Application with a 25 to 55 age gate (one constant in `src/lib/config.ts`), and explicit consent for sensitive data under the Kenya Data Protection Act
 - Phone OTP sign-in (hashed codes, expiry, attempt limits and hourly limits)
 - KES 300 application fee by M-Pesa STK push, charged **before** the ID check so bots can't use up the verification budget
 - Identity check. Only the outcome and an HMAC of the ID number are stored, so duplicate accounts are blocked and no ID images are kept

@@ -45,10 +45,11 @@ export function ApplyForm() {
         <div>
           <span className="label">Ages you&apos;d like to meet</span>
           <div className="flex items-center gap-2">
-            <input className="input" name="prefAgeMin" type="number" min={AGE_MIN} max={AGE_MAX} defaultValue={AGE_MIN} aria-label="Youngest" />
+            <input className="input" name="prefAgeMin" type="number" min={AGE_MIN} max={AGE_MAX} placeholder="Your age − 8" aria-label="Youngest" />
             <span className="text-muted">to</span>
-            <input className="input" name="prefAgeMax" type="number" min={AGE_MIN} max={AGE_MAX} defaultValue={AGE_MAX} aria-label="Oldest" />
+            <input className="input" name="prefAgeMax" type="number" min={AGE_MIN} max={AGE_MAX} placeholder="Your age + 8" aria-label="Oldest" />
           </div>
+          <p className="hint">Leave blank and we&apos;ll use about 8 years either side of your age. You can widen it later.</p>
         </div>
       </div>
 

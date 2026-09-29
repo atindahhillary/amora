@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { sql } from "@/lib/db";
-import { densityReport, getSetting } from "@/lib/services/matching";
+import { densityByAge, densityReport, getSetting } from "@/lib/services/matching";
 import { formatNairobi, nextDropAt } from "@/lib/time";
 import { toggleMatchingAction } from "./actions";
 
 export default async function AdminHome() {
   const d = await densityReport();
+  const bands = await densityByAge();
   const open = await getSetting("matching_open", false);
   const minPerSide = await getSetting("min_per_side_to_open", 40);
   const cap = await getSetting("cohort_cap", 400);
@@ -55,6 +56,25 @@ export default async function AdminHome() {
             ))}
           </tbody>
         </table>
+        <div>
+          <p className="eyebrow">In a season, by age</p>
+          <table className="data-table mt-1">
+            <thead><tr><th>Age</th><th>Women</th><th>Men</th><th /></tr></thead>
+            <tbody>
+              {bands.map((b) => {
+                const thin = Math.min(b.woman, b.man) < Math.max(5, Math.ceil(minPerSide / 4));
+                return (
+                  <tr key={b.label}>
+                    <td>{b.label}</td>
+                    <td className="tabular-nums">{b.woman}</td>
+                    <td className="tabular-nums">{b.man}</td>
+                    <td className={thin ? "text-alert" : "text-sage"}>{thin ? "Too thin: recruit here" : "OK"}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
         {total >= cap && <p className="notice">You&apos;ve reached the cohort cap. Waitlist new applicants.</p>}
         <p className="text-sm">Matching is <strong>{open ? "open" : "closed"}</strong>. Next drop: {formatNairobi(nextDropAt())} · {counts.queued} matches queued.</p>
       </section>
